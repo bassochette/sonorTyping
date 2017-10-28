@@ -1,6 +1,7 @@
-# Sonor Typing (alpha)
+# Sonor Typing (alpha (terribly alpha) )
 ## Description
-Generate 8bits music while typing 
+Generate 16bits music while typing
+It's easy you run the program and when you type weird music will be played 🎵
 
 ## Install
 
@@ -8,3 +9,8 @@ Generate 8bits music while typing
 npm install -g sonor-typing
 ```
 
+## Use
+
+```
+sonor-typing
+```
