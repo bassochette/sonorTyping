@@ -1,6 +1,6 @@
 {
   "name": "sonor-typing",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Global hook listeming on the keyboard and playing sounds",
   "repostory": {
     "type": "git",
