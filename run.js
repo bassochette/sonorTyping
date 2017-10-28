@@ -22,14 +22,18 @@ ioHook.on(
     const freq = scale[event.rawcode] ? scale[event.rawcode] : randomItemInArray(scale);
     const sound = tone({
       freq,
-      lengthInSecs: 0.2,
-      volume: tone.MAX_8,
+      lengthInSecs: 0.23,
+      volume: tone.MAX_16,
       sampleRate: 44100,
       shape: 'sine'
     });
 
-    const data = Uint8Array.from(sound, (val) => val+128);
-    const buffer = new Buffer(data);
+    const data = Int16Array.from(sound)
+    const buffer = new Buffer(data.length*2);
+    data.forEach(function (value, index) {
+      buffer.writeInt16LE(value, index * 2)
+    })
+
     speaker.write(buffer);
   }
 )

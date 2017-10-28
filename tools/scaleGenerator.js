@@ -9,11 +9,11 @@ const harmoniqueMinor = [2,1,2,2,1,2,2]
 const melodiqueMinor = [2,1,2,2,2,2,1]
 const blues = [3,1,2,2,3,2]
 
-let base = -20
+let base = -18
 const MAX_KEY_CODE = 125
 const MIN_KEY_CODE = 1
 
-const pattern = diminished
+const pattern = melodiqueMinor
 
 const o1 = pattern.map(
   (interval) => {
