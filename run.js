@@ -7,6 +7,7 @@ const tone = require('tonegenerator')
 const { randomItemInArray } = require('./tools/meh.js')
 const speaker = require('./tools/speaker');
 const { noteFrequency, scale } = require('./tools/scaleGenerator');
+const { speed } = require('./tools/speed');
 
 const SHAPES = [
   "sine",
@@ -15,20 +16,13 @@ const SHAPES = [
   "square"
 ];
 
-let baseSpeed = 1;
-let touchPerSecond = 1;
-let start = new Date;
-
-const speed = () => {
-  frequency = ++touchPerSecond / (new Date - start) * 1000
-  const s = baseSpeed / frequency;
-  return s > 0.5 ? 0.5 : s;
+const mappedKeyInScale = (key, scale) => {
+  return scale[key] ? scale[key] : randomItemInArray(scale)
 }
-
 ioHook.on(
   "keydown",
   event => {
-    const freq = randomItemInArray(scale);
+    const freq = mappedKeyInScale(event.rawcode, scale);
     const sound = tone({
       freq,
       lengthInSecs: speed(),

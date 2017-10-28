@@ -10,18 +10,25 @@ const harmoniqueMinor = [1,0.5,1,1,0.5,1,1]
 const melodiqueMinor = [1,0.5,1,1,1,1,0.5]
 const blues = [1.5,0.5,1,1,1.5,1]
 
-
-const pattern = pintaMinor
-let base = -10
-
-const scale = [noteFrequency(base)].concat(pattern.map(
-  (interval) => {
-    base += interval
-    return noteFrequency(base)
+const scaleOnXOctaves = (x, pattern) => {
+  let base = -10
+  let scale = [noteFrequency(base)]
+  for (x; x!==0; x--) {
+      pattern.forEach(
+        (interval) => {
+          base += interval
+          scale.push(noteFrequency(base))
+        }
+      );
   }
-))
 
-console.log(scale);
+  while (scale.length < 140 ) {
+    scale = scale.concat(scale)
+  }
+  return scale
+}
+
+const scale = scaleOnXOctaves(3, blues)
 
 module.exports = {
   noteFrequency,
