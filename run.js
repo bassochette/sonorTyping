@@ -5,7 +5,7 @@ const Speaker = require('speaker');
 /*
  * LA SI DO# MI FA#
  */
-const  LA = 432
+const LA = 432
 const SI = 484.90
 const DOd = 305.47
 const MI = 323.63
@@ -15,32 +15,43 @@ const pintaMajeur = [LA, SI, DOd, MI, FAd];
 
 const speaker = new Speaker({
   channels: 2,
-  bitDepth: 16,
+  bitDepth: 8,
   sampleRate: 44100
 });
+
+const shapes = [
+  "sine",
+  "triangle",
+  "saw",
+  "square"
+];
+
+const randomIndexInArray = (array) => Math.floor(Math.random()*array.length)
+
+const selectShape = () => shapes[randomIndexInArray(shapes)]
+
+const selectFrequencie = () => pintaMajeur[randomIndexInArray(pintaMajeur)]
+
+console.log(selectFrequencie() , "freq");
+console.log(selectShape(), "shape");
 
 ioHook.on(
   "keyup",
   event => {
     console.log(" key up ", event);
     const sound = tone({
-      freq: pintaMajeur[Math.floor(Math.random()*pintaMajeur.length)],
-      lengthInSecs: 0.2,
+      freq: selectFrequencie(),
+      lengthInSecs: 0.4,
       volume: tone.MAX_8,
       sampleRate: 44100,
       shape: 'triangle'
-    }); 
+    });
 
+    console.log(sound);
     const data = Uint8Array.from(sound, (val) => val+128);
     const buffer = new Buffer(data);
     speaker.write(buffer);
   }
 )
-
-//ioHook.on(
-//  "keydown",
-//  event => {
-//    console.log(" key down ", event);
-//  }
-//)
 ioHook.start();
+

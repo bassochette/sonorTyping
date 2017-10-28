@@ -1,14 +1,29 @@
 {
   "name": "sonor-typing",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Global hook listeming on the keyboard and playing sounds",
+  "repostory": {
+    "type": "git",
+    "url": "https://github.com/bassochette/sonorTyping.git"
   },
   "author": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "patch-release": "npm version patch && git push --follow-tags"
+  },
+  "bin": {
+    "sonor-typing": "run.js"
+  },
   "license": "ISC",
   "dependencies": {
-    "iohook": "^0.1.9"
+    "iohook": "^0.1.9",
+    "speaker": "^0.4.0",
+    "tonegenerator": "^0.3.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "nodemon": "^1.12.1"
   }
 }
