@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 // Npm dependencies
 const ioHook = require('iohook')
 const tone = require('tonegenerator')
@@ -16,13 +15,23 @@ const SHAPES = [
   "square"
 ];
 
+let baseSpeed = 1;
+let touchPerSecond = 1;
+let start = new Date;
+
+const speed = () => {
+  frequency = ++touchPerSecond / (new Date - start) * 1000
+  const s = baseSpeed / frequency;
+  return s > 0.5 ? 0.5 : s;
+}
+
 ioHook.on(
-  "keyup",
+  "keydown",
   event => {
-    const freq = scale[event.rawcode] ? scale[event.rawcode] : randomItemInArray(scale);
+    const freq = randomItemInArray(scale);
     const sound = tone({
       freq,
-      lengthInSecs: 0.23,
+      lengthInSecs: speed(),
       volume: tone.MAX_16,
       sampleRate: 44100,
       shape: 'sine'

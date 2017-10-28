@@ -1,70 +1,27 @@
 const noteFrequency = (noteNumber) => Math.pow(2, (noteNumber-9)/12) * 432
 
-const minor = [2,1,2,2,1,2,2]
-const major = [2,2,1,2,2,2,1]
-const pintaMajor = [2,2,3,2,3]
-const pintaMinor = [1,2,2,3,1]
-const diminished = [2,1,2,1,2,1,2,1]
-const harmoniqueMinor = [2,1,2,2,1,2,2]
-const melodiqueMinor = [2,1,2,2,2,2,1]
-const blues = [3,1,2,2,3,2]
+// Interval Pattern
+const minor = [1,0.5,1,1,0.5,1,1]
+const major = [1,1,0.5,1,1,1,0.5]
+const pintaMajor = [1,1,1.5,1,1.5]
+const pintaMinor = [0.5,1,1,1.5,0.5]
+const diminished = [1,0.5,1,0.5,1,0.5,1,0.5]
+const harmoniqueMinor = [1,0.5,1,1,0.5,1,1]
+const melodiqueMinor = [1,0.5,1,1,1,1,0.5]
+const blues = [1.5,0.5,1,1,1.5,1]
 
-let base = -18
-const MAX_KEY_CODE = 125
-const MIN_KEY_CODE = 1
 
-const pattern = melodiqueMinor
+const pattern = pintaMinor
+let base = -10
 
-const o1 = pattern.map(
+const scale = [noteFrequency(base)].concat(pattern.map(
   (interval) => {
     base += interval
     return noteFrequency(base)
   }
-)
-const o2 = pattern.map(
-  (interval) => {
-    base += interval
-    return noteFrequency(base)
-  }
-)
-const o3 = pattern.map(
-  (interval) => {
-    base += interval
-    return noteFrequency(base)
-  }
-)
+))
 
-const o4 = pattern.map(
-  (interval) => {
-    base += interval
-    return noteFrequency(base)
-  }
-)
-
-const scale = o1
-  .concat(o2)
-  .concat(o3)
-  .concat(o4)
-  .concat(o1)
-  .concat(o2)
-  .concat(o3)
-  .concat(o4)
-  .concat(o1)
-  .concat(o2)
-  .concat(o3)
-  .concat(o4)
-  .concat(o1)
-  .concat(o2)
-  .concat(o3)
-  .concat(o4)
-  .concat(o1)
-  .concat(o2)
-  .concat(o3)
-  .concat(o4)
-  .concat(o1)
-  .concat(o2)
-  .concat(o3)
-  .concat(o4)
+console.log(scale);
 
 module.exports = {
   noteFrequency,
