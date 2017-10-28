@@ -1,47 +1,31 @@
 #!/usr/bin/env node
-const ioHook = require('iohook');
-const tone = require('tonegenerator');
-const Speaker = require('speaker');
 
-/*
- * LA SI DO# MI FA#
- */
-const LA = 432
-const SI = 484.90
-const DOd = 305.47
-const MI = 323.63
-const FAd = 363.27
+// Npm dependencies
+const ioHook = require('iohook')
+const tone = require('tonegenerator')
 
-const pintaMajeur = [LA, SI, DOd, MI, FAd];
+// tool
+const { randomItemInArray } = require('./tools/meh.js')
+const speaker = require('./tools/speaker');
+const { noteFrequency, scale } = require('./tools/scaleGenerator');
 
-const speaker = new Speaker({
-  channels: 2,
-  bitDepth: 8,
-  sampleRate: 44100
-});
-
-const shapes = [
+const SHAPES = [
   "sine",
   "triangle",
   "saw",
   "square"
 ];
 
-const randomIndexInArray = (array) => Math.floor(Math.random()*array.length)
-
-const selectShape = () => shapes[randomIndexInArray(shapes)]
-
-const selectFrequencie = () => pintaMajeur[randomIndexInArray(pintaMajeur)]
-
 ioHook.on(
   "keyup",
   event => {
+    const freq = scale[event.rawcode] ? scale[event.rawcode] : randomItemInArray(scale);
     const sound = tone({
-      freq: selectFrequencie(),
-      lengthInSecs: 0.4,
+      freq,
+      lengthInSecs: 0.2,
       volume: tone.MAX_8,
       sampleRate: 44100,
-      shape: selectShape()
+      shape: 'sine'
     });
 
     const data = Uint8Array.from(sound, (val) => val+128);
@@ -50,4 +34,3 @@ ioHook.on(
   }
 )
 ioHook.start();
-
