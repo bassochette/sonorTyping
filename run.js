@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const ioHook = require('iohook');
 const tone = require('tonegenerator');
 const Speaker = require('speaker');
