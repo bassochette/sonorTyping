@@ -5,11 +5,11 @@ let start = new Date;
 const speed = () => {
   frequency = ++touch / (new Date - start) * 1000
   const s = baseSpeed / frequency
-  if (s === 0.5) {
+  if (s === 0.3) {
     start = new Date
     touch = 5
   }
-  return s > 0.5 ? 0.5 : s
+  return s > 0.3 ? 0.3 : s
 }
 
 
