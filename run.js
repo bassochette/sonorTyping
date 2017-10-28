@@ -33,22 +33,17 @@ const selectShape = () => shapes[randomIndexInArray(shapes)]
 
 const selectFrequencie = () => pintaMajeur[randomIndexInArray(pintaMajeur)]
 
-console.log(selectFrequencie() , "freq");
-console.log(selectShape(), "shape");
-
 ioHook.on(
   "keyup",
   event => {
-    console.log(" key up ", event);
     const sound = tone({
       freq: selectFrequencie(),
       lengthInSecs: 0.4,
       volume: tone.MAX_8,
       sampleRate: 44100,
-      shape: 'triangle'
+      shape: selectShape()
     });
 
-    console.log(sound);
     const data = Uint8Array.from(sound, (val) => val+128);
     const buffer = new Buffer(data);
     speaker.write(buffer);
