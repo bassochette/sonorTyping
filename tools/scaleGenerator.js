@@ -28,7 +28,8 @@ const scaleOnXOctaves = (x, pattern) => {
   return scale
 }
 
-const scale = scaleOnXOctaves(3, blues)
+
+const scale = scaleOnXOctaves(3, pintaMajor)
 
 module.exports = {
   noteFrequency,
