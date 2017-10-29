@@ -6,8 +6,9 @@ const tone = require('tonegenerator')
 // tool
 const { randomItemInArray } = require('./tools/meh.js')
 const speaker = require('./tools/speaker');
-const { notes, scaleOnXOctaves, patterns } = require('./tools/scaleGenerator');
 const { speed, getCurrentFrequency } = require('./tools/speed');
+
+const chordsProgression = require('./partitions/lesYeuxNoirs');
 
 const SHAPES = [
   "sine",
@@ -20,27 +21,15 @@ const mappedKeyInScale = (key, scale) => {
   return scale[key] ? scale[key] : randomItemInArray(scale)
 }
 
-const ApintaMinor = scaleOnXOctaves(2, patterns.diminished, notes.A4);
-const DpintaMinor = scaleOnXOctaves(2, patterns.diminished, notes.D4);
-const EpintaMajor = scaleOnXOctaves(2, patterns.diminished, notes.E4);
-
-const chordsProgression = [
-  ApintaMinor,
-  ApintaMinor,
-  DpintaMinor,
-  DpintaMinor,
-  EpintaMajor,
-  EpintaMajor
-]
-
 let beat = -1
+let signature = 4;
 let mesure = 0;
 let scale = chordsProgression[mesure]
 ioHook.on(
   "keydown",
   event => {
     beat += 1
-    if (beat % 3 === 0 ) {
+    if (beat % signature === 0) {
       beat = 0
       if (mesure === chordsProgression.length-1) {
         mesure = 0
@@ -51,7 +40,7 @@ ioHook.on(
     const sound = tone({
       freq,
       lengthInSecs: speed(),
-      volume: tone.MAX_16,
+      volume: tone.MAX_16/8,
       sampleRate: 44100,
       shape: 'sine'
     })
